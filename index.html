@@ -352,6 +352,19 @@ function sameDay(a,b){
   return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
 }
 
+function dateOnly(d){
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+}
+
+function eventOccursOnDay(e, cellDate){
+  const day = dateOnly(cellDate);
+  const startDay = dateOnly(e.start);
+  let endDay = dateOnly(e.end);
+  // All-day ICS events use an exclusive DTEND (the day after the last day)
+  if(e.allDay && endDay > startDay) endDay -= 86400000;
+  return day >= startDay && day <= endDay;
+}
+
 function render(){
   monthLabel.textContent = fmtMonth(viewDate);
   renderGrid();
@@ -390,13 +403,14 @@ function renderGrid(){
     if(outside) cell.classList.add('outside');
     if(sameDay(cellDate, today)) cell.classList.add('today');
 
-    const dayEvents = events.filter(e => sameDay(e.start, cellDate))
+    const dayEvents = events.filter(e => eventOccursOnDay(e, cellDate))
                              .sort((a,b) => a.start - b.start);
 
     let chipsHtml = '';
     const shown = dayEvents.slice(0,3);
     shown.forEach(e => {
-      const label = e.allDay ? e.title : `${e.start.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})} ${e.title}`;
+      const isStartDay = sameDay(e.start, cellDate);
+      const label = e.allDay ? e.title : (isStartDay ? `${e.start.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})} ${e.title}` : e.title);
       chipsHtml += `<div class="evt-chip${e.allDay?' allday':''}" title="${escapeHtml(e.title)}">${escapeHtml(label)}</div>`;
     });
     if(dayEvents.length > 3){
@@ -421,7 +435,11 @@ function renderUpcoming(){
   }
   upcomingSection.style.display = 'block';
   upcomingList.innerHTML = upcoming.map(e => {
-    const d = e.start.getDate();
+    const lastDay = e.allDay && dateOnly(e.end) > dateOnly(e.start)
+      ? new Date(e.end.getTime() - 86400000)
+      : e.end;
+    const spansDays = !sameDay(e.start, lastDay);
+    const d = spansDays ? `${e.start.getDate()}–${lastDay.getDate()}` : e.start.getDate();
     const m = e.start.toLocaleDateString('en-US',{month:'short'});
     const timeStr = e.allDay
       ? 'All day'
