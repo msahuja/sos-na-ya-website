@@ -101,5 +101,19 @@
 </div>
 
 </div>
+
+<script>
+function sendHeight(){
+  var h = document.body.scrollHeight;
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'mission-momentum-height', height: h }, '*');
+  }
+}
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(sendHeight).observe(document.body);
+}
+</script>
 </body>
 </html>
