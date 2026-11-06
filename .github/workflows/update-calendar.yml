@@ -1,0 +1,30 @@
+name: Update Calendar Cache
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-ics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest ICS feed
+        run: |
+          curl -sSL --fail --max-time 30 -o calendar-cache.ics.new \
+            "https://outlook.office365.com/owa/calendar/532850cf59224f0d981998885d9a1fa1@sos.org/4a0bed0e434642bea8431bcc3a9677e315125753563851968528/calendar.ics"
+          grep -q "BEGIN:VCALENDAR" calendar-cache.ics.new
+          mv calendar-cache.ics.new calendar-cache.ics
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add calendar-cache.ics
+          git diff --staged --quiet || git commit -m "Update cached calendar feed"
+          git push

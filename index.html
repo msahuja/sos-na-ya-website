@@ -344,28 +344,40 @@ function setStatus(msg, isError){
 async function loadCalendar(){
   setStatus('Loading events…');
   try{
-    let text;
+    let text = null;
+
+    // Primary: same-origin copy, refreshed every ~15 min by a GitHub Action.
+    // No CORS, no third-party proxy, no live dependency on Outlook per page view.
     try{
-      const r = await fetch(ICS_URL, {mode:'cors'});
-      if(!r.ok) throw new Error('direct fetch failed');
-      text = await r.text();
-    }catch(directErr){
-      let lastErr;
-      text = null;
-      for(const proxy of CORS_PROXIES){
-        try{
-          const r2 = await fetch(proxy + encodeURIComponent(ICS_URL));
-          if(!r2.ok) throw new Error('proxy fetch failed: ' + proxy);
-          const candidate = await r2.text();
-          if(!candidate.includes('BEGIN:VCALENDAR')) throw new Error('proxy returned non-ICS content: ' + proxy);
-          text = candidate;
-          break;
-        }catch(proxyErr){
-          lastErr = proxyErr;
+      const rc = await fetch('calendar-cache.ics', {cache:'no-store'});
+      if(rc.ok){
+        const candidate = await rc.text();
+        if(candidate.includes('BEGIN:VCALENDAR')) text = candidate;
+      }
+    }catch(cacheErr){ /* fall through to live fetch */ }
+
+    // Fallback: live fetch, direct then via CORS proxies. Only used if the
+    // cached copy is missing (e.g. before the Action's first run).
+    if(text === null){
+      try{
+        const r = await fetch(ICS_URL, {mode:'cors'});
+        if(!r.ok) throw new Error('direct fetch failed');
+        text = await r.text();
+      }catch(directErr){
+        for(const proxy of CORS_PROXIES){
+          try{
+            const r2 = await fetch(proxy + encodeURIComponent(ICS_URL));
+            if(!r2.ok) throw new Error('proxy fetch failed: ' + proxy);
+            const candidate = await r2.text();
+            if(!candidate.includes('BEGIN:VCALENDAR')) throw new Error('proxy returned non-ICS content: ' + proxy);
+            text = candidate;
+            break;
+          }catch(proxyErr){ /* try next proxy */ }
         }
       }
-      if(text === null) throw lastErr || new Error('all proxies failed');
     }
+
+    if(text === null) throw new Error('all sources failed');
     events = parseICS(text);
     setStatus('');
     render();
