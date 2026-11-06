@@ -168,7 +168,7 @@ function handlePhotoError(img){
 async function loadTeam(){
   const statusEl = document.getElementById('status');
   try{
-    const res = await fetch('team-data.json', {cache:'no-store'});
+    const res = await fetch('team-data.json?t=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('fetch failed');
     const people = await res.json();
 
