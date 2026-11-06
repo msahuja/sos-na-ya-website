@@ -316,10 +316,14 @@ const ICS_URL = "https://outlook.office365.com/owa/calendar/532850cf59224f0d9819
 
 // Outlook's published ICS feed typically does not send CORS headers,
 // so a direct browser fetch from another origin will usually fail.
-// This proxy re-serves the same bytes with Access-Control-Allow-Origin: *.
-// It's fine for a low-traffic community calendar; swap for your own
+// These proxies re-serve the same bytes with Access-Control-Allow-Origin: *.
+// Free proxies are flaky, so we try several in order; swap in your own
 // Cloudflare Worker / serverless proxy if you want more control.
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
+const CORS_PROXIES = [
+  "https://api.allorigins.win/raw?url=",
+  "https://corsproxy.io/?url=",
+  "https://api.codetabs.com/v1/proxy?quest="
+];
 
 /* ============================================================ */
 
@@ -346,9 +350,21 @@ async function loadCalendar(){
       if(!r.ok) throw new Error('direct fetch failed');
       text = await r.text();
     }catch(directErr){
-      const r2 = await fetch(CORS_PROXY + encodeURIComponent(ICS_URL));
-      if(!r2.ok) throw new Error('proxy fetch failed');
-      text = await r2.text();
+      let lastErr;
+      text = null;
+      for(const proxy of CORS_PROXIES){
+        try{
+          const r2 = await fetch(proxy + encodeURIComponent(ICS_URL));
+          if(!r2.ok) throw new Error('proxy fetch failed: ' + proxy);
+          const candidate = await r2.text();
+          if(!candidate.includes('BEGIN:VCALENDAR')) throw new Error('proxy returned non-ICS content: ' + proxy);
+          text = candidate;
+          break;
+        }catch(proxyErr){
+          lastErr = proxyErr;
+        }
+      }
+      if(text === null) throw lastErr || new Error('all proxies failed');
     }
     events = parseICS(text);
     setStatus('');
