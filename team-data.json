@@ -1,0 +1,38 @@
+[
+  { "id": "rimjhim-duggal-stephens", "name": "Rimjhim Duggal Stephens", "role": "International YA Coordinator", "note": "", "section": "International YA Coordinator", "email": "", "phone": "" },
+
+  { "id": "sara-pletcher", "name": "Sara Pletcher", "role": "International YA Liaison", "note": "South America & Australia", "section": "International YA Liaisons", "email": "", "phone": "" },
+  { "id": "aparna-grover", "name": "Aparna Grover", "role": "International YA Liaison", "note": "Asia & Africa", "section": "International YA Liaisons", "email": "", "phone": "" },
+  { "id": "jay-ahuja", "name": "Jay Ahuja", "role": "International YA Liaison", "note": "North America & Europe", "section": "International YA Liaisons", "email": "", "phone": "" },
+
+  { "id": "aastha-saggar", "name": "Aastha Saggar", "role": "National Coordinator", "note": "Currently", "section": "National Coordinators", "email": "", "phone": "" },
+  { "id": "divya-goel", "name": "Divya Goel", "role": "National Coordinator", "note": "Starting May 2026", "section": "National Coordinators", "email": "", "phone": "" },
+  { "id": "sanchita-kapoor", "name": "Sanchita Kapoor", "role": "National Coordinator", "note": "", "section": "National Coordinators", "email": "", "phone": "" },
+  { "id": "kanav-gupta", "name": "Kanav Gupta", "role": "National Coordinator", "note": "Currently", "section": "National Coordinators", "email": "", "phone": "" },
+  { "id": "vanessa-kamandali", "name": "Vanessa Kamandali", "role": "National Coordinator", "note": "Starting September 2026", "section": "National Coordinators", "email": "", "phone": "" },
+
+  { "id": "manik-badhwar", "name": "Manik Badhwar", "role": "National AV & Tech Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "shruti-gulihar", "name": "Shruti Gulihar", "role": "National Communications Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "bianca-schramm", "name": "Bianca Schramm", "role": "National Outreach Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "shailja-panchal", "name": "Shailja Panchal", "role": "National Outreach Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "akshay-naik", "name": "Akshay Naik", "role": "National Seva Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "gracy-grover", "name": "Gracy Grover", "role": "National Teens Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "steven-coronell", "name": "Steven Coronell", "role": "National Workshops Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "amanpreet-kaur", "name": "Amanpreet Kaur", "role": "National Workshops Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "shreya-caesar-kohli", "name": "Shreya Caesar Kohli", "role": "National Hospitality Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "mehak-ahuja", "name": "Mehak Ahuja", "role": "National SU Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "priyanka-rangra", "name": "Priyanka Rangra", "role": "National Camp Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
+  { "id": "ayesha-caesar-bhardwaj", "name": "Ayesha Caesar Bhardwaj", "role": "National Veggie Fest Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
+
+  { "id": "bani-kaur", "name": "Bani Kaur", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "ana-patino", "name": "Ana Patino", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "gabriel-ham", "name": "Gabriel Ham", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "katherine-rodriguez", "name": "Katherine Rodriguez", "role": "Regional Coordinator", "note": "California", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "avika-mathur", "name": "Avika Mathur", "role": "Regional Coordinator", "note": "Minnesota", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "jj-parmar", "name": "Janmejay (JJ) Parmar", "role": "Regional Coordinator", "note": "New Jersey", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "trishi-gupta", "name": "Trishi Gupta", "role": "Regional Coordinator", "note": "New York", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "akam-sethi", "name": "Akam Sethi", "role": "Regional Coordinator", "note": "New York", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "pavni-chandani", "name": "Pavni Chandani", "role": "Regional Coordinator", "note": "Toronto", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "kanika-karla", "name": "Kanika Karla", "role": "Regional Coordinator", "note": "Toronto", "section": "Regional Coordinators", "email": "", "phone": "" },
+  { "id": "sukhvinder-singh", "name": "Sukhvinder Singh", "role": "Regional Coordinator", "note": "Vancouver", "section": "Regional Coordinators", "email": "", "phone": "" }
+]
