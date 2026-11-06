@@ -1,36 +1,272 @@
 [
-  { "id": "rimjhim-duggal-stephens", "name": "Rimjhim Duggal Stephens", "role": "International YA Coordinator", "note": "", "section": "International YA Coordinator", "email": "", "phone": "" },
-
-  { "id": "sara-pletcher", "name": "Sara Pletcher", "role": "International YA Liaison", "note": "South America & Australia", "section": "International YA Liaisons", "email": "", "phone": "" },
-  { "id": "aparna-grover", "name": "Aparna Grover", "role": "International YA Liaison", "note": "Asia & Africa", "section": "International YA Liaisons", "email": "", "phone": "" },
-  { "id": "jay-ahuja", "name": "Jay Ahuja", "role": "International YA Liaison", "note": "North America & Europe", "section": "International YA Liaisons", "email": "", "phone": "" },
-
-  { "id": "divya-goel", "name": "Divya Goel", "role": "National Coordinator", "note": "", "section": "National Coordinators", "email": "", "phone": "" },
-  { "id": "sanchita-kapoor", "name": "Sanchita Kapoor", "role": "National Coordinator", "note": "", "section": "National Coordinators", "email": "", "phone": "" },
-  { "id": "vanessa-kamandali", "name": "Vanessa Kamandali", "role": "National Coordinator", "note": "", "section": "National Coordinators", "email": "", "phone": "" },
-
-  { "id": "manik-badhwar", "name": "Manik Badhwar", "role": "National AV & Tech Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "shruti-gulihar", "name": "Shruti Gulihar", "role": "National Communications Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "bianca-schramm", "name": "Bianca Schramm", "role": "National Outreach Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "shailja-panchal", "name": "Shailja Panchal", "role": "National Outreach Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "akshay-naik", "name": "Akshay Naik", "role": "National Seva Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "gracy-grover", "name": "Gracy Grover", "role": "National Teens Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "steven-coronell", "name": "Steven Coronell", "role": "National Workshops Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "amanpreet-kaur", "name": "Amanpreet Kaur", "role": "National Workshops Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "shreya-caesar-kohli", "name": "Shreya Caesar Kohli", "role": "National Hospitality Coordinator", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "mehak-ahuja", "name": "Mehak Ahuja", "role": "National SU Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "priyanka-rangra", "name": "Priyanka Rangra", "role": "National Camp Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
-  { "id": "ayesha-caesar-bhardwaj", "name": "Ayesha Caesar Bhardwaj", "role": "National Veggie Fest Liaison", "note": "", "section": "National Team", "email": "", "phone": "" },
-
-  { "id": "bani-kaur", "name": "Bani Kaur", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "ana-patino", "name": "Ana Patino", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "gabriel-ham", "name": "Gabriel Ham", "role": "Regional Coordinator", "note": "Chicago", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "katherine-rodriguez", "name": "Katherine Rodriguez", "role": "Regional Coordinator", "note": "California", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "avika-mathur", "name": "Avika Mathur", "role": "Regional Coordinator", "note": "Minnesota", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "jj-parmar", "name": "Janmejay (JJ) Parmar", "role": "Regional Coordinator", "note": "New Jersey", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "trishi-gupta", "name": "Trishi Gupta", "role": "Regional Coordinator", "note": "New York", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "akam-sethi", "name": "Akam Sethi", "role": "Regional Coordinator", "note": "New York", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "pavni-chandani", "name": "Pavni Chandani", "role": "Regional Coordinator", "note": "Toronto", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "kanika-karla", "name": "Kanika Karla", "role": "Regional Coordinator", "note": "Toronto", "section": "Regional Coordinators", "email": "", "phone": "" },
-  { "id": "sukhvinder-singh", "name": "Sukhvinder Singh", "role": "Regional Coordinator", "note": "Vancouver", "section": "Regional Coordinators", "email": "", "phone": "" }
+  {
+    "id": "rimjhim-duggal-stephens",
+    "name": "Rimjhim Duggal Stephens",
+    "role": "International YA Coordinator",
+    "note": "",
+    "section": "International YA Coordinator",
+    "email": "rimjhim.stephens@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "sara-pletcher",
+    "name": "Sara Pletcher",
+    "role": "International YA Liaison",
+    "note": "South America & Australia",
+    "section": "International YA Liaisons",
+    "email": "sara.pletcher@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "aparna-grover",
+    "name": "Aparna Grover",
+    "role": "International YA Liaison",
+    "note": "Asia & Africa",
+    "section": "International YA Liaisons",
+    "email": "aparna.grover@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "jay-ahuja",
+    "name": "Jay Ahuja",
+    "role": "International YA Liaison",
+    "note": "North America & Europe",
+    "section": "International YA Liaisons",
+    "email": "jay.ahuja@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "divya-goel",
+    "name": "Divya Goel",
+    "role": "National Coordinator",
+    "note": "",
+    "section": "National Coordinators",
+    "email": "divya.goel@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "sanchita-kapoor",
+    "name": "Sanchita Kapoor",
+    "role": "National Coordinator",
+    "note": "",
+    "section": "National Coordinators",
+    "email": "sanchita.kapoor@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "vanessa-kamandali",
+    "name": "Vanessa Kamandali",
+    "role": "National Coordinator",
+    "note": "",
+    "section": "National Coordinators",
+    "email": "vanessa.kamandali@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "manik-badhwar",
+    "name": "Manik Badhwar",
+    "role": "National AV & Tech Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "manik.badhwar@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "shruti-gulihar",
+    "name": "Shruti Gulihar",
+    "role": "National Communications Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "shruti.gulihar@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "bianca-schramm",
+    "name": "Bianca Schramm",
+    "role": "National Outreach Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "bianca.schramm@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "shailja-panchal",
+    "name": "Shailja Panchal",
+    "role": "National Outreach Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "shailja.panchal@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "akshay-naik",
+    "name": "Akshay Naik",
+    "role": "National Seva Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "akshay.naik@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "gracy-grover",
+    "name": "Gracy Grover",
+    "role": "National Teens Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "gracy.grover@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "steven-coronell",
+    "name": "Steven Coronell",
+    "role": "National Workshops Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "steven.coronell@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "amanpreet-kaur",
+    "name": "Amanpreet Kaur",
+    "role": "National Workshops Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "amanpreet.kaur@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "shreya-caesar-kohli",
+    "name": "Shreya Caesar Kohli",
+    "role": "National Hospitality Coordinator",
+    "note": "",
+    "section": "National Team",
+    "email": "shreya.kohli@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "mehak-ahuja",
+    "name": "Mehak Ahuja",
+    "role": "National SU Liaison",
+    "note": "",
+    "section": "National Team",
+    "email": "mehak.ahuja@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "priyanka-rangra",
+    "name": "Priyanka Rangra",
+    "role": "National Camp Liaison",
+    "note": "",
+    "section": "National Team",
+    "email": "priyanka.rangra@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "ayesha-caesar-bhardwaj",
+    "name": "Ayesha Caesar Bhardwaj",
+    "role": "National Veggie Fest Liaison",
+    "note": "",
+    "section": "National Team",
+    "email": "ayesha.bhardwaj@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "bani-kaur",
+    "name": "Bani Kaur",
+    "role": "Regional Coordinator",
+    "note": "Chicago",
+    "section": "Regional Coordinators",
+    "email": "bani.kaur@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "ana-patino",
+    "name": "Ana Patino",
+    "role": "Regional Coordinator",
+    "note": "Chicago",
+    "section": "Regional Coordinators",
+    "email": "ana.patino@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "gabriel-ham",
+    "name": "Gabriel Ham",
+    "role": "Regional Coordinator",
+    "note": "Chicago",
+    "section": "Regional Coordinators",
+    "email": "gabriel.ham@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "katherine-rodriguez",
+    "name": "Katherine Rodriguez",
+    "role": "Regional Coordinator",
+    "note": "California",
+    "section": "Regional Coordinators",
+    "email": "katherine.rodriguez@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "avika-mathur",
+    "name": "Avika Mathur",
+    "role": "Regional Coordinator",
+    "note": "Minnesota",
+    "section": "Regional Coordinators",
+    "email": "avika.mathur@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "jj-parmar",
+    "name": "Janmejay (JJ) Parmar",
+    "role": "Regional Coordinator",
+    "note": "New Jersey",
+    "section": "Regional Coordinators",
+    "email": "janmejay.parmar@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "trishi-gupta",
+    "name": "Trishi Gupta",
+    "role": "Regional Coordinator",
+    "note": "New York",
+    "section": "Regional Coordinators",
+    "email": "trishi.gupta@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "akam-sethi",
+    "name": "Akam Sethi",
+    "role": "Regional Coordinator",
+    "note": "New York",
+    "section": "Regional Coordinators",
+    "email": "akam.sethi@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "pavni-chandani",
+    "name": "Pavni Chandani",
+    "role": "Regional Coordinator",
+    "note": "Toronto",
+    "section": "Regional Coordinators",
+    "email": "pavni.chandani@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "kanika-karla",
+    "name": "Kanika Karla",
+    "role": "Regional Coordinator",
+    "note": "Toronto",
+    "section": "Regional Coordinators",
+    "email": "kanika.karla@sos.org",
+    "phone": ""
+  },
+  {
+    "id": "sukhvinder-singh",
+    "name": "Sukhvinder Singh",
+    "role": "Regional Coordinator",
+    "note": "Vancouver",
+    "section": "Regional Coordinators",
+    "email": "",
+    "phone": ""
+  }
 ]
