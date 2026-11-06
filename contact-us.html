@@ -187,6 +187,19 @@ async function loadTeam(){
   }catch(err){
     statusEl.textContent = 'Could not load the team list right now. Please try again shortly.';
   }
+  sendHeight();
+}
+
+function sendHeight(){
+  var h = document.body.scrollHeight;
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'contact-us-height', height: h }, '*');
+  }
+}
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(sendHeight).observe(document.body);
 }
 
 loadTeam();
