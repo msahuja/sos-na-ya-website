@@ -389,6 +389,14 @@ async function loadCalendar(){
 function parseICS(icsText){
   const jcalData = ICAL.parse(icsText);
   const comp = new ICAL.Component(jcalData);
+
+  // Register every VTIMEZONE the feed defines before touching any VEVENT.
+  // Without this, TZID resolution for non-UTC recurring events is unreliable.
+  comp.getAllSubcomponents('vtimezone').forEach(vtzComp => {
+    const timezone = new ICAL.Timezone(vtzComp);
+    if(timezone.tzid) ICAL.TimezoneService.register(timezone.tzid, timezone);
+  });
+
   const vevents = comp.getAllSubcomponents('vevent');
   const parsed = [];
 

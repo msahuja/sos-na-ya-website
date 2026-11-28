@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YA Central Articles</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(ellipse 900px 400px at 15% 0%, rgba(199,154,61,0.08), transparent 60%), #FAF8F3;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color:#1C1A2E;
+    padding:20px 0;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px;}
+
+  .page-header{margin-bottom:28px;}
+  .page-header .kicker{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:12px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+    color:#A9791F; background:rgba(199,154,61,0.14); border-radius:999px;
+    padding:5px 14px 5px 12px; margin-bottom:12px;
+  }
+  .page-header .kicker .dot{width:6px;height:6px;border-radius:50%;background:#A9791F;display:inline-block;}
+  .page-header h1{
+    font-family:Georgia,'Times New Roman',serif; font-weight:700; font-size:32px;
+    margin:0 0 8px; color:#1C1A2E; letter-spacing:-0.01em;
+  }
+  .page-header p{font-size:15px; line-height:1.6; color:rgba(28,26,46,0.68); margin:0; max-width:640px;}
+
+  .panel{
+    background:#fff; border:1px solid rgba(28,26,46,0.07); border-radius:16px;
+    padding:24px; margin-bottom:28px; box-shadow:0 4px 14px rgba(28,26,46,0.05);
+  }
+  .panel h2{
+    font-family:Georgia,'Times New Roman',serif; font-weight:700; font-size:20px;
+    margin:0 0 16px; color:#1C1A2E;
+  }
+
+  label{display:block; font-size:12.5px; font-weight:700; color:rgba(28,26,46,0.65); margin-bottom:5px;}
+  input[type=text], input[type=url], textarea{
+    width:100%; border:1px solid rgba(28,26,46,0.15); border-radius:8px; padding:9px 11px;
+    font-family:inherit; font-size:14px; color:#1C1A2E; margin-bottom:16px;
+  }
+  textarea{min-height:140px; resize:vertical;}
+  input:focus, textarea:focus{outline:none; border-color:#5B4FC7;}
+
+  /* honeypot -- hidden from humans, bots tend to fill every field */
+  .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+
+  .submit-btn{
+    background:#5B4FC7; color:#fff; border:none; border-radius:8px; padding:11px 24px;
+    font-size:14.5px; font-weight:700; cursor:pointer; font-family:inherit;
+  }
+  .submit-btn:hover{background:#4A3FB0;}
+  .submit-btn:disabled{background:rgba(91,79,199,0.4); cursor:not-allowed;}
+
+  .form-msg{font-size:13.5px; margin-top:10px; display:none;}
+  .form-msg.success{color:#2E8B5F; display:block;}
+  .form-msg.error{color:#B54545; display:block;}
+
+  .article{
+    background:#fff; border:1px solid rgba(28,26,46,0.07); border-radius:14px;
+    padding:20px; margin-bottom:16px;
+  }
+  .article img{width:100%; max-height:280px; object-fit:cover; border-radius:10px; margin-bottom:14px; display:block;}
+  .article .meta{font-size:12px; color:rgba(28,26,46,0.5); margin-bottom:6px;}
+  .article h3{font-family:Georgia,serif; font-size:19px; margin:0 0 8px; color:#1C1A2E;}
+  .article .body{font-size:14.5px; line-height:1.65; color:rgba(28,26,46,0.78); white-space:pre-wrap;}
+
+  .status{font-size:13px; color:rgba(28,26,46,0.5); padding:20px 0; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="kicker"><span class="dot"></span>YA Central</div>
+    <h1>Articles</h1>
+    <p>Reflections, stories, and updates from young adults across North America — and a place to share your own.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Share an Article</h2>
+    <form id="articleForm">
+      <label for="f-title">Title</label>
+      <input type="text" id="f-title" required maxlength="140">
+
+      <label for="f-author">Your Name</label>
+      <input type="text" id="f-author" required maxlength="80">
+
+      <label for="f-image">Image URL <span style="font-weight:400; color:rgba(28,26,46,0.4);">(optional)</span></label>
+      <input type="url" id="f-image" placeholder="https://...">
+
+      <label for="f-body">Article</label>
+      <textarea id="f-body" required maxlength="8000"></textarea>
+
+      <!-- honeypot field: real visitors never see or fill this -->
+      <div class="hp" aria-hidden="true">
+        <label for="f-website">Website</label>
+        <input type="text" id="f-website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Publish Article</button>
+      <div id="formMsg" class="form-msg"></div>
+    </form>
+  </div>
+
+  <div id="articleList"></div>
+  <div id="status" class="status">Loading articles…</div>
+
+</div>
+
+<script>
+const SUPABASE_URL = 'https://cvsoakweuphcyfiftjrg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_3by5ruSlQofvNu_TXcSgHw_ZKMxbNNZ';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function fmtDate(iso){
+  return new Date(iso).toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
+}
+
+function renderArticle(a){
+  const img = a.image_url ? `<img src="${escapeHtml(a.image_url)}" alt="" onerror="this.style.display='none';">` : '';
+  return `
+    <div class="article">
+      ${img}
+      <div class="meta">${escapeHtml(a.author_name)} &middot; ${fmtDate(a.created_at)}</div>
+      <h3>${escapeHtml(a.title)}</h3>
+      <div class="body">${escapeHtml(a.body)}</div>
+    </div>
+  `;
+}
+
+async function loadArticles(){
+  const statusEl = document.getElementById('status');
+  const listEl = document.getElementById('articleList');
+  const { data, error } = await sb
+    .from('ya_central_articles')
+    .select('*')
+    .eq('hidden', false)
+    .order('created_at', { ascending: false });
+
+  if(error){
+    statusEl.textContent = 'Could not load articles right now. Please try again shortly.';
+    return;
+  }
+  if(!data.length){
+    statusEl.textContent = 'No articles yet — be the first to share one!';
+    listEl.innerHTML = '';
+    return;
+  }
+  statusEl.textContent = '';
+  listEl.innerHTML = data.map(renderArticle).join('');
+}
+
+document.getElementById('articleForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msgEl = document.getElementById('formMsg');
+  const btn = document.getElementById('submitBtn');
+
+  // honeypot check -- if this hidden field got filled, silently drop it
+  if(document.getElementById('f-website').value.trim() !== ''){
+    msgEl.className = 'form-msg success';
+    msgEl.textContent = 'Thanks! Your article was submitted.';
+    e.target.reset();
+    return;
+  }
+
+  const title = document.getElementById('f-title').value.trim();
+  const author_name = document.getElementById('f-author').value.trim();
+  const image_url = document.getElementById('f-image').value.trim() || null;
+  const body = document.getElementById('f-body').value.trim();
+
+  if(!title || !author_name || !body){
+    msgEl.className = 'form-msg error';
+    msgEl.textContent = 'Please fill in title, your name, and the article text.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Publishing…';
+
+  const { error } = await sb.from('ya_central_articles').insert([{ title, author_name, image_url, body }]);
+
+  btn.disabled = false;
+  btn.textContent = 'Publish Article';
+
+  if(error){
+    msgEl.className = 'form-msg error';
+    msgEl.textContent = 'Something went wrong submitting your article. Please try again.';
+    return;
+  }
+
+  msgEl.className = 'form-msg success';
+  msgEl.textContent = 'Published! Scroll down to see it.';
+  e.target.reset();
+  loadArticles();
+});
+
+loadArticles();
+</script>
+</body>
+</html>

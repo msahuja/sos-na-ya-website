@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>YA Central Articles — Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:#FAF8F3;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color:#1C1A2E;
+    padding:20px 0;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px;}
+  h1{font-family:Georgia,'Times New Roman',serif; font-size:26px; margin:0 0 6px;}
+  .sub{font-size:13.5px; color:rgba(28,26,46,0.6); margin:0 0 24px;}
+  .warning{
+    background:rgba(181,69,69,0.08); border:1px solid rgba(181,69,69,0.25); border-radius:10px;
+    padding:12px 16px; font-size:13px; color:#8a3a3a; margin-bottom:24px; line-height:1.5;
+  }
+
+  .article{
+    background:#fff; border:1px solid rgba(28,26,46,0.07); border-radius:12px;
+    padding:18px; margin-bottom:12px; position:relative;
+  }
+  .article.is-hidden{opacity:0.55; border-style:dashed;}
+  .article .meta{font-size:12px; color:rgba(28,26,46,0.5); margin-bottom:4px;}
+  .article h3{font-family:Georgia,serif; font-size:17px; margin:0 0 8px;}
+  .article .body{font-size:13.5px; line-height:1.55; color:rgba(28,26,46,0.75); white-space:pre-wrap; margin-bottom:12px; max-height:120px; overflow-y:auto;}
+  .article img{max-width:160px; max-height:100px; object-fit:cover; border-radius:6px; margin-bottom:10px; display:block;}
+
+  .actions{display:flex; gap:8px;}
+  .actions button{
+    font-family:inherit; font-size:12.5px; font-weight:700; border-radius:7px; padding:7px 14px;
+    cursor:pointer; border:1px solid rgba(28,26,46,0.15); background:#fff; color:#1C1A2E;
+  }
+  .actions button.danger{color:#B54545; border-color:rgba(181,69,69,0.3);}
+  .hidden-tag{
+    display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    color:#8a3a3a; background:rgba(181,69,69,0.1); border-radius:999px; padding:3px 9px; margin-left:8px;
+  }
+
+  .status{font-size:13px; color:rgba(28,26,46,0.5); padding:20px 0; text-align:center;}
+  .locked{text-align:center; padding:80px 20px; font-size:14px; color:rgba(28,26,46,0.6);}
+</style>
+</head>
+<body>
+<div class="wrap" id="app" style="display:none;">
+
+  <h1>YA Central Articles — Admin</h1>
+  <p class="sub">Hide or delete submissions. This page isn't linked from the site — don't share the URL publicly.</p>
+  <div class="warning">
+    This page has no real login — anyone with this exact URL and a bit of technical knowledge could access it the same way you do. Treat the link as a shared secret, not a secure system.
+  </div>
+
+  <div id="articleList"></div>
+  <div id="status" class="status">Loading…</div>
+
+</div>
+
+<div id="locked" class="locked">Checking access…</div>
+
+<script>
+const SUPABASE_URL = 'https://cvsoakweuphcyfiftjrg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_3by5ruSlQofvNu_TXcSgHw_ZKMxbNNZ';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Simple speed-bump, NOT real security -- change this to whatever you like.
+const ADMIN_PASSPHRASE = 'yacentral2026';
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function fmtDate(iso){
+  return new Date(iso).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+
+function renderArticle(a){
+  const img = a.image_url ? `<img src="${escapeHtml(a.image_url)}" alt="" onerror="this.style.display='none';">` : '';
+  const hiddenTag = a.hidden ? '<span class="hidden-tag">Hidden</span>' : '';
+  return `
+    <div class="article ${a.hidden ? 'is-hidden' : ''}" data-id="${a.id}">
+      ${img}
+      <div class="meta">${escapeHtml(a.author_name)} &middot; ${fmtDate(a.created_at)}${hiddenTag}</div>
+      <h3>${escapeHtml(a.title)}</h3>
+      <div class="body">${escapeHtml(a.body)}</div>
+      <div class="actions">
+        <button onclick="toggleHidden('${a.id}', ${!a.hidden})">${a.hidden ? 'Unhide' : 'Hide'}</button>
+        <button class="danger" onclick="deleteArticle('${a.id}')">Delete</button>
+      </div>
+    </div>
+  `;
+}
+
+async function loadArticles(){
+  const statusEl = document.getElementById('status');
+  const listEl = document.getElementById('articleList');
+  const { data, error } = await sb
+    .from('ya_central_articles')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if(error){
+    statusEl.textContent = 'Could not load articles right now.';
+    return;
+  }
+  if(!data.length){
+    statusEl.textContent = 'No articles submitted yet.';
+    listEl.innerHTML = '';
+    return;
+  }
+  statusEl.textContent = '';
+  listEl.innerHTML = data.map(renderArticle).join('');
+}
+
+async function toggleHidden(id, newHidden){
+  await sb.from('ya_central_articles').update({ hidden: newHidden }).eq('id', id);
+  loadArticles();
+}
+
+async function deleteArticle(id){
+  if(!confirm('Delete this article permanently? This cannot be undone.')) return;
+  await sb.from('ya_central_articles').delete().eq('id', id);
+  loadArticles();
+}
+
+(function checkAccess(){
+  const entered = prompt('Enter the admin passphrase:');
+  if(entered === ADMIN_PASSPHRASE){
+    document.getElementById('locked').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadArticles();
+  } else {
+    document.getElementById('locked').textContent = 'Incorrect passphrase.';
+  }
+})();
+</script>
+</body>
+</html>
